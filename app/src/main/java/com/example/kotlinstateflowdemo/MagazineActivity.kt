@@ -4,21 +4,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.beust.klaxon.Klaxon
-import com.beust.klaxon.json
 import com.example.kotlinstateflowdemo.databinding.ActivityMagazineBinding
-import com.example.kotlinstateflowdemo.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 
 @OptIn(ExperimentalCoroutinesApi::class)
 
-class MagazineActivity : AppCompatActivity() {
+class MagazineActivity : AppCompatActivity(), ICallbackListener {
     private var _binding: ActivityMagazineBinding? = null
     private val binding get() = _binding!!
 
@@ -43,8 +40,6 @@ class MagazineActivity : AppCompatActivity() {
         if(jsonData != null) {
             viewModel.setCookie(jsonData)
 
-
-
             val viewPager: ViewPager2 = findViewById(R.id.view_pager)
             val fragments: ArrayList<Fragment> = arrayListOf(
                 Page1Fragment(),
@@ -53,6 +48,7 @@ class MagazineActivity : AppCompatActivity() {
 
             val adapter = ViewPagerAdapter(fragments, this)
             viewPager.adapter = adapter
+            viewPager.isUserInputEnabled = false
 
             lifecycleScope.launchWhenStarted {
                 viewModel.magazineUiState.collect {
@@ -74,6 +70,9 @@ class MagazineActivity : AppCompatActivity() {
                         is MagazineViewModel.MagazineUiState.Loading -> {
 //                        binding.progressBar.isVisible = true
                         }
+                        is MagazineViewModel.MagazineUiState.SetUserInputEnabled -> {
+                            viewPager.isUserInputEnabled = it.isUserInputEnabled
+                        }
                         else -> Unit
                     }
                 }
@@ -87,5 +86,9 @@ class MagazineActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun setUserInputEnabled(isUserInputEnabled: Boolean) {
+        viewModel.setUserInputEnabled(isUserInputEnabled)
     }
 }

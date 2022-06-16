@@ -1,22 +1,23 @@
 package com.example.kotlinstateflowdemo
 
 import android.content.Context
-import android.os.Build
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.webkit.WebView
-import androidx.annotation.RequiresApi
-import java.net.HttpURLConnection
-import java.net.URL
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelStore
 
 class ExtendedWebView : WebView {
-
     companion object {
         private val JAVASCRIPT_OBJ = "javascript_obj"
         var scroll = false
         var swiper = false
+        val activity: AppCompatActivity? = null
     }
+
+//    var activity: AppCompatActivity? = null
 
     private var disallowIntercept = false
 
@@ -44,18 +45,31 @@ class ExtendedWebView : WebView {
                 parent.requestDisallowInterceptTouchEvent(false)
             }
             MotionEvent.ACTION_DOWN -> {
+                try {
+
 //                if (isSwiperCheck()) {
-                Log.w("jagaatest", "isSwiperCheck ${isSwiperCheck()}")
-                Log.w("jagaatest", "canScrollHor ${canScrollHor()}")
+                    Log.w("jagaatest", "isSwiperCheck ${isSwiperCheck()}")
+                    Log.w("jagaatest", "canScrollHor ${canScrollHor()}")
 
-                if(isSwiperCheck() && canScrollHor()) {
+                    if (isSwiperCheck() && canScrollHor()) {
+//                    val magazineViewModel =  ViewModelStore(this).get(MagazineViewModel::class.java)
+//                        var parentContext = context.applicationContext as MagazineActivity
+//                        var parentContext = activity
+//                        (MagazineActivity) getActivity()
+//                        parentContext.setUserInputEnabled(true)
+//                    viewModel.setCookie(JsonData());
+//                    parentContext.viewModel.setCookie
+//                    var parentContext = parentActivity.this;
 //                    ((MainActivity)getActivity())
-
-
-                }
-                // todo
+//                    isUserInputEnabled = false
+                    } else {
+//                    isUserInputEnabled = true
+                    }
 //                    EventBus.getDefault().post(CustomEvent(CustomEvents.isSwiper, 1, canScrollHor()))
 //                }
+                } catch (e: Exception) {
+                    Log.w("jagaatest", e.toString())
+                }
             }
         }
 
@@ -84,10 +98,13 @@ class ExtendedWebView : WebView {
         return computeHorizontalScrollRange()
     }
 
+//    fun setActivity(a: AppCompatActivity) {
+//        activity = a
+//    }
+
     override fun getContentHeight(): Int {
         return computeVerticalScrollRange()
     }
-
 
 
 }

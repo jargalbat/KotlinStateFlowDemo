@@ -28,10 +28,14 @@ class MagazineViewModel : ViewModel() {
         cookieManager.flush()
     }
 
+    fun setUserInputEnabled(isUserInputEnabled: Boolean) {
+        _magazineUiState.value = MagazineUiState.SetUserInputEnabled(isUserInputEnabled)
+    }
 
     sealed class MagazineUiState {
         object Success : MagazineUiState()
         data class Error(val message: String) : MagazineUiState()
+        data class SetUserInputEnabled(val isUserInputEnabled: Boolean) : MagazineUiState()
         object Loading : MagazineUiState()
         object Empty : MagazineUiState()
     }

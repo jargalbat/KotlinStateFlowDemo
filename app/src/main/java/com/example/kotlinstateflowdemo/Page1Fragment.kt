@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.CookieManager
 import android.webkit.WebSettings
+import android.webkit.WebView
+import androidx.activity.viewModels
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,10 +40,14 @@ class Page1Fragment : Fragment() {
 
         val view: View = inflater.inflate(R.layout.fragment_page1, container, false)
         val webView: ExtendedWebView = view.findViewById(R.id.webview)
+        webView.getContentWidth()
+//        val webView: WebView = view.findViewById(R.id.webview2)
 
         // Cookie
         val cookieManager = CookieManager.getInstance()
         cookieManager.setAcceptThirdPartyCookies(webView, true)
+
+        var parentActivity = activity as MagazineActivity
 
         // Web View
 //        webView.loadUrl("https://ebook-reader-2b784.web.app/0003/index.html")
