@@ -41,37 +41,7 @@ class Page1Fragment : Fragment() {
 
         // Cookie
         val cookieManager = CookieManager.getInstance()
-        cookieManager.setAcceptCookie(true)
         cookieManager.setAcceptThirdPartyCookies(webView, true)
-        cookieManager.removeAllCookies(null)
-        cookieManager.setCookie(
-            "https://d1jo9x45ta5zr4.cloudfront.net",
-            "CloudFront-Policy="
-                    + "eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9kMWpvOXg0NXRhNXpyNC5jbG91ZGZyb250Lm5ldC9jb250ZW50cy8xMjI5LzUvZGVmYXVsdC8qIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNjU1MzU2Mzc0fX19XX0_"
-                    + ";"
-                    + "path="
-                    + "/contents/1229/5/default"
-                    + ";"
-        )
-        cookieManager.setCookie(
-            "https://d1jo9x45ta5zr4.cloudfront.net",
-            "CloudFront-Signature="
-                    + "JloSmYsjtWe8JvhQsKOw3D2a9zP090XnVWDPa4frUHBe5Bcv1Ar6qtSwatOF7HQhB8rT0Q3ldoRl~WIwHuArhWoej5LaRajz~Ka2vMB~1Lk6g-GdK0W7DCVAvY75mE4zus54qw263M4P-rLa2pTRLjFS2Sgqr0D2uXMeHPS1j2A4NQkEsQkvxVguFkaRt4F0pUBKRP4wRC0an0G2b8CyCr9i2nTYBpda4x7DD3MQz9Jc6~kbibStfKZ645~dpsw0LG7keymtkOzY9LtT58QIpokldXoYPfl-WwoyOdgq-ECPUu7Vj9q1m1hlad5CVc3gI7ZT62-nUkWiVXvV8mVztA__"
-                    + ";"
-                    + "path="
-                    + "/contents/1229/5/default"
-                    + ";"
-        )
-        cookieManager.setCookie(
-            "https://d1jo9x45ta5zr4.cloudfront.net",
-            "CloudFront-Key-Pair-Id="
-                    + "APKAJ4X56YZGXJGBPE6A"
-                    + ";"
-                    + "path="
-                    + "/contents/1229/5/default"
-                    + ";"
-        )
-        cookieManager.flush()
 
         // Web View
 //        webView.loadUrl("https://ebook-reader-2b784.web.app/0003/index.html")

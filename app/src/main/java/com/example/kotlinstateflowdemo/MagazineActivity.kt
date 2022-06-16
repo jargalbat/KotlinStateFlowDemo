@@ -8,6 +8,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
+import com.beust.klaxon.Klaxon
+import com.beust.klaxon.json
 import com.example.kotlinstateflowdemo.databinding.ActivityMagazineBinding
 import com.example.kotlinstateflowdemo.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
@@ -30,39 +32,56 @@ class MagazineActivity : AppCompatActivity() {
         val data: String = intent.getStringExtra("data").toString()
         Log.w("jagaatest", data)
 
-//        val viewPager: ViewPager2 = findViewById(R.id.view_pager)
-//        val fragments: ArrayList<Fragment> = arrayListOf(
-//            Page1Fragment(),
-//            Page2Fragment()
-//        )
+        var jsonData: JsonData? = null
+        try {
+            jsonData = Klaxon().parse<JsonData>(data)
+            Log.w("jagaatest", jsonData.toString())
+        } catch (e: Exception) {
+            Log.w("jagaatest", e.toString())
+        }
 
-//        val adapter = ViewPagerAdapter(fragments, this)
-//        viewPager.adapter = adapter
-//
-//        lifecycleScope.launchWhenStarted {
-//            viewModel.magazineUiState.collect {
-//                when (it) {
-//                    is MagazineViewModel.MagazineUiState.Success -> {
-//                        Snackbar.make(
-//                            binding.root,
-//                            "Successfully logged in",
-//                            Snackbar.LENGTH_LONG
-//                        ).show()
-//                    }
-//                    is MagazineViewModel.MagazineUiState.Error -> {
-//                        Snackbar.make(
-//                            binding.root,
-//                            it.message,
-//                            Snackbar.LENGTH_LONG
-//                        ).show()
-//                    }
-//                    is MagazineViewModel.MagazineUiState.Loading -> {
-////                        binding.progressBar.isVisible = true
-//                    }
-//                    else -> Unit
-//                }
-//            }
-//        }
+        if(jsonData != null) {
+            viewModel.setCookie(jsonData)
+
+
+
+            val viewPager: ViewPager2 = findViewById(R.id.view_pager)
+            val fragments: ArrayList<Fragment> = arrayListOf(
+                Page1Fragment(),
+                Page2Fragment()
+            )
+
+            val adapter = ViewPagerAdapter(fragments, this)
+            viewPager.adapter = adapter
+
+            lifecycleScope.launchWhenStarted {
+                viewModel.magazineUiState.collect {
+                    when (it) {
+                        is MagazineViewModel.MagazineUiState.Success -> {
+                            Snackbar.make(
+                                binding.root,
+                                "Successfully logged in",
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                        is MagazineViewModel.MagazineUiState.Error -> {
+                            Snackbar.make(
+                                binding.root,
+                                it.message,
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                        is MagazineViewModel.MagazineUiState.Loading -> {
+//                        binding.progressBar.isVisible = true
+                        }
+                        else -> Unit
+                    }
+                }
+            }
+        }
+
+
+
     }
 
     override fun onDestroy() {

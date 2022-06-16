@@ -26,6 +26,8 @@ class MainViewModel : ViewModel() {
 
     fun getCookie() {
         GlobalScope.launch(Dispatchers.IO) {
+            _loginUiState.value = LoginUiState.Loading
+
             try {
                 val url =
                     URL("https://staging.wplus.world/api/mobile-app/magazine/v1/issues/776/online-view")
@@ -50,6 +52,7 @@ class MainViewModel : ViewModel() {
 
             } catch (e: Exception) {
                 Log.w("jagaatest", e.toString())
+                _loginUiState.value = LoginUiState.Error("Error occurred")
             }
         }
 
