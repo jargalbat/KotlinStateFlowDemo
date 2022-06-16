@@ -1,12 +1,13 @@
 package com.example.kotlinstateflowdemo
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
+import java.net.HttpURLConnection
+import java.net.URL
 
 @ExperimentalCoroutinesApi
 class MainViewModel : ViewModel() {
@@ -17,14 +18,45 @@ class MainViewModel : ViewModel() {
         _loginUiState.value = LoginUiState.Loading
 //        delay(2000L)
         if (username == "1" && password == "1") {
-            _loginUiState.value = LoginUiState.Success
+            _loginUiState.value = LoginUiState.Success("")
         } else {
             _loginUiState.value = LoginUiState.Error("Wrong credentials")
         }
     }
 
+    fun getCookie() {
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val url =
+                    URL("https://staging.wplus.world/api/mobile-app/magazine/v1/issues/776/online-view")
+
+                with(url.openConnection() as HttpURLConnection) {
+                    requestMethod = "POST"  // optional default is GET
+                    setRequestProperty("Accept", "application/json")
+                    setRequestProperty("Device-UUID", "A358D8BD-69AA-49D6-8FA2-E324E873DD78")
+                    println("\nSent 'POST' request to URL : $url; Response Code : $responseCode")
+                    if (responseCode == 200) {
+                        val data = inputStream.bufferedReader().readText()
+                        if (data.isNotEmpty()) {
+                            _loginUiState.value = LoginUiState.Success(data)
+                        } else {
+                            _loginUiState.value = LoginUiState.Error("Data not found")
+                        }
+                    } else {
+                        _loginUiState.value = LoginUiState.Error("Request failed")
+                    }
+
+                }
+
+            } catch (e: Exception) {
+                Log.w("jagaatest", e.toString())
+            }
+        }
+
+    }
+
     sealed class LoginUiState {
-        object Success : LoginUiState()
+        data class Success(val data: String) : LoginUiState()
         data class Error(val message: String) : LoginUiState()
         object Loading : LoginUiState()
         object Empty : LoginUiState()

@@ -24,10 +24,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnLogin.setOnClickListener {
-            viewModel.login(
-                binding.etUsername.text.toString(),
-                binding.etPassword.text.toString()
-            )
+//            viewModel.login(
+//                binding.etUsername.text.toString(),
+//                binding.etPassword.text.toString()
+//            )
+            viewModel.getCookie()
         }
 
         lifecycleScope.launchWhenStarted {
@@ -42,6 +43,7 @@ class MainActivity : AppCompatActivity() {
                         binding.progressBar.isVisible = false
 
                         val intent = Intent(this@MainActivity, MagazineActivity::class.java)
+                        intent.putExtra("data", it.data)
                         startActivity(intent)
                     }
                     is MainViewModel.LoginUiState.Error -> {

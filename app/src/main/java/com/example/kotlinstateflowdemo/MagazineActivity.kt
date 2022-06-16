@@ -2,6 +2,7 @@ package com.example.kotlinstateflowdemo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -26,39 +27,42 @@ class MagazineActivity : AppCompatActivity() {
         _binding = ActivityMagazineBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewPager: ViewPager2 = findViewById(R.id.view_pager)
-        val fragments: ArrayList<Fragment> = arrayListOf(
-            Page1Fragment(),
-            Page2Fragment()
-        )
+        val data: String = intent.getStringExtra("data").toString()
+        Log.w("jagaatest", data)
 
-        val adapter = ViewPagerAdapter(fragments, this)
-        viewPager.adapter = adapter
+//        val viewPager: ViewPager2 = findViewById(R.id.view_pager)
+//        val fragments: ArrayList<Fragment> = arrayListOf(
+//            Page1Fragment(),
+//            Page2Fragment()
+//        )
 
-        lifecycleScope.launchWhenStarted {
-            viewModel.magazineUiState.collect {
-                when (it) {
-                    is MagazineViewModel.MagazineUiState.Success -> {
-                        Snackbar.make(
-                            binding.root,
-                            "Successfully logged in",
-                            Snackbar.LENGTH_LONG
-                        ).show()
-                    }
-                    is MagazineViewModel.MagazineUiState.Error -> {
-                        Snackbar.make(
-                            binding.root,
-                            it.message,
-                            Snackbar.LENGTH_LONG
-                        ).show()
-                    }
-                    is MagazineViewModel.MagazineUiState.Loading -> {
-//                        binding.progressBar.isVisible = true
-                    }
-                    else -> Unit
-                }
-            }
-        }
+//        val adapter = ViewPagerAdapter(fragments, this)
+//        viewPager.adapter = adapter
+//
+//        lifecycleScope.launchWhenStarted {
+//            viewModel.magazineUiState.collect {
+//                when (it) {
+//                    is MagazineViewModel.MagazineUiState.Success -> {
+//                        Snackbar.make(
+//                            binding.root,
+//                            "Successfully logged in",
+//                            Snackbar.LENGTH_LONG
+//                        ).show()
+//                    }
+//                    is MagazineViewModel.MagazineUiState.Error -> {
+//                        Snackbar.make(
+//                            binding.root,
+//                            it.message,
+//                            Snackbar.LENGTH_LONG
+//                        ).show()
+//                    }
+//                    is MagazineViewModel.MagazineUiState.Loading -> {
+////                        binding.progressBar.isVisible = true
+//                    }
+//                    else -> Unit
+//                }
+//            }
+//        }
     }
 
     override fun onDestroy() {

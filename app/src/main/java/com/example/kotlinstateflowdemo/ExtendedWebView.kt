@@ -1,10 +1,14 @@
 package com.example.kotlinstateflowdemo
 
 import android.content.Context
+import android.os.Build
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.webkit.WebView
+import androidx.annotation.RequiresApi
+import java.net.HttpURLConnection
+import java.net.URL
 
 class ExtendedWebView : WebView {
 
@@ -83,5 +87,7 @@ class ExtendedWebView : WebView {
     override fun getContentHeight(): Int {
         return computeVerticalScrollRange()
     }
+
+
 
 }
