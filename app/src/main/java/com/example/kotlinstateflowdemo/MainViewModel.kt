@@ -15,7 +15,7 @@ class MainViewModel : ViewModel() {
 
     fun login(username: String, password: String) = viewModelScope.launch {
         _loginUiState.value = LoginUiState.Loading
-        delay(2000L)
+//        delay(2000L)
         if (username == "1" && password == "1") {
             _loginUiState.value = LoginUiState.Success
         } else {

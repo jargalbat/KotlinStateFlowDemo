@@ -1,59 +1,59 @@
 package com.example.kotlinstateflowdemo
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.viewpager2.widget.ViewPager2
+import com.example.kotlinstateflowdemo.databinding.ActivityMagazineBinding
 import com.example.kotlinstateflowdemo.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class MainActivity : AppCompatActivity() {
-    private var _binding: ActivityMainBinding? = null
+
+class MagazineActivity : AppCompatActivity() {
+    private var _binding: ActivityMagazineBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MagazineViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityMainBinding.inflate(layoutInflater)
+        _binding = ActivityMagazineBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnLogin.setOnClickListener {
-            viewModel.login(
-                binding.etUsername.text.toString(),
-                binding.etPassword.text.toString()
-            )
-        }
+        val viewPager: ViewPager2 = findViewById(R.id.view_pager)
+        val fragments: ArrayList<Fragment> = arrayListOf(
+            Page1Fragment(),
+            Page2Fragment()
+        )
+
+        val adapter = ViewPagerAdapter(fragments, this)
+        viewPager.adapter = adapter
 
         lifecycleScope.launchWhenStarted {
-            viewModel.loginUiState.collect {
+            viewModel.magazineUiState.collect {
                 when (it) {
-                    is MainViewModel.LoginUiState.Success -> {
+                    is MagazineViewModel.MagazineUiState.Success -> {
                         Snackbar.make(
                             binding.root,
                             "Successfully logged in",
                             Snackbar.LENGTH_LONG
                         ).show()
-                        binding.progressBar.isVisible = false
-
-                        val intent = Intent(this@MainActivity, MagazineActivity::class.java)
-                        startActivity(intent)
                     }
-                    is MainViewModel.LoginUiState.Error -> {
+                    is MagazineViewModel.MagazineUiState.Error -> {
                         Snackbar.make(
                             binding.root,
                             it.message,
                             Snackbar.LENGTH_LONG
                         ).show()
-                        binding.progressBar.isVisible = false
                     }
-                    is MainViewModel.LoginUiState.Loading -> {
-                        binding.progressBar.isVisible = true
+                    is MagazineViewModel.MagazineUiState.Loading -> {
+//                        binding.progressBar.isVisible = true
                     }
                     else -> Unit
                 }
