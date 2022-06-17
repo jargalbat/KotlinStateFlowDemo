@@ -46,9 +46,6 @@ class ExtendedWebView : WebView {
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-
-
-
         when (event?.action) {
             MotionEvent.ACTION_MOVE -> {
                 if (event.pointerCount > 1 && !disallowIntercept) {
@@ -60,57 +57,11 @@ class ExtendedWebView : WebView {
                 disallowIntercept = false
                 parent.requestDisallowInterceptTouchEvent(false)
             }
-//            MotionEvent.ACTION_SCROLL -> {
-//                try {
-////                if (isSwiperCheck()) {
-//                    Log.w("jagaatest", "isSwiperCheck ${isSwiperCheck()}")
-//                    Log.w("jagaatest", "canScrollHor ${canScrollHor()}")
-//
-//                    if (isSwiperCheck() && canScrollHor()) {
-////                    val magazineViewModel =  ViewModelStore(this).get(MagazineViewModel::class.java)
-////                        var parentContext = context.applicationContext as MagazineActivity
-////                        var parentContext = activity
-////                        (MagazineActivity) getActivity()
-////                        parentContext.setUserInputEnabled(true)
-////                    viewModel.setCookie(JsonData());
-////                    parentContext.viewModel.setCookie
-////                    var parentContext = parentActivity.this;
-////                    ((MainActivity)getActivity())
-////                    isUserInputEnabled = false
-//                        iCallbackListener = getActivity() as ICallbackListener
-//                        iCallbackListener.setUserInputEnabled(false)
-//                    } else {
-//                        iCallbackListener = getActivity() as ICallbackListener
-//                        iCallbackListener.setUserInputEnabled(true)
-////                    isUserInputEnabled = true
-//                    }
-////                    EventBus.getDefault().post(CustomEvent(CustomEvents.isSwiper, 1, canScrollHor()))
-////                }
-//                } catch (e: Exception) {
-//                    Log.w("jagaatest", e.toString())
-//                }
-//            }
 
             MotionEvent.ACTION_DOWN -> {
                 try {
                     iCallbackListener = getActivity() as ICallbackListener
                     iCallbackListener.setUserInputEnabled(false)
-
-//                if (isSwiperCheck()) {
-//                    Log.w("jagaatest", "isSwiperCheck ${isSwiperCheck()}")
-//                    Log.w("jagaatest", "canScrollHor ${canScrollHor()}")
-//
-//                    if (isSwiperCheck() && canScrollHor()) {
-//
-//                        iCallbackListener = getActivity() as ICallbackListener
-//                        iCallbackListener.setUserInputEnabled(false)
-//                    } else {
-//                        iCallbackListener = getActivity() as ICallbackListener
-//                        iCallbackListener.setUserInputEnabled(true)
-//
-//                    }
-//                }
-
                 } catch (e: Exception) {
                     Log.w("jagaatest", e.toString())
                 }
@@ -126,19 +77,6 @@ class ExtendedWebView : WebView {
         super.onOverScrolled(scrollX, scrollY, clampedX, clampedY)
     }
 
-    private fun canScrollHor(): Boolean {
-        evaluateJavascript("javascript:if (typeof hasscroll === \"function\") { hasscroll();}") { s: String ->
-            scroll = s == "true"
-        }
-        return scroll
-    }
-
-    private fun isSwiperCheck(): Boolean {
-        evaluateJavascript("javascript:if (\$(\".swiper-container-horizontal\").length === 0) {false;}else{true;} ") { value: String ->
-            swiper = value == "true"
-        }
-        return swiper
-    }
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
         return super.onInterceptTouchEvent(ev)
@@ -148,13 +86,7 @@ class ExtendedWebView : WebView {
         return computeHorizontalScrollRange()
     }
 
-//    fun setActivity(a: AppCompatActivity) {
-//        activity = a
-//    }
-
     override fun getContentHeight(): Int {
         return computeVerticalScrollRange()
     }
-
-
 }
