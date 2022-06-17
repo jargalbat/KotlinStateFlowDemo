@@ -42,7 +42,8 @@ class MainActivity : AppCompatActivity() {
                         ).show()
                         binding.progressBar.isVisible = false
 
-                        val intent = Intent(this@MainActivity, MagazineActivity::class.java)
+//                        val intent = Intent(this@MainActivity, MagazineActivity::class.java)
+                        val intent = Intent(this@MainActivity, IssueActivity::class.java)
                         intent.putExtra("data", it.data)
                         startActivity(intent)
                     }

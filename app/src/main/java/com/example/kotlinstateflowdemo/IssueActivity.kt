@@ -8,22 +8,20 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.beust.klaxon.Klaxon
+import com.example.kotlinstateflowdemo.databinding.ActivityIssueBinding
 import com.example.kotlinstateflowdemo.databinding.ActivityMagazineBinding
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 
-@OptIn(ExperimentalCoroutinesApi::class)
-
-class MagazineActivity : AppCompatActivity(), ICallbackListener {
-    private var _binding: ActivityMagazineBinding? = null
+class IssueActivity : AppCompatActivity(), ICallbackListener {
+    private var _binding: ActivityIssueBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MagazineViewModel by viewModels()
+    private val viewModel: IssueViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityMagazineBinding.inflate(layoutInflater)
+        _binding = ActivityIssueBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val data: String = intent.getStringExtra("data").toString()
@@ -40,7 +38,7 @@ class MagazineActivity : AppCompatActivity(), ICallbackListener {
         if(jsonData != null) {
             viewModel.setCookie(jsonData)
 
-            val viewPager: ViewPager2 = findViewById(R.id.view_pager)
+            val viewPager: ViewPager2 = findViewById(R.id.view_pager2)
             val fragments: ArrayList<Fragment> = arrayListOf(
                 Page1Fragment(),
                 Page2Fragment()
@@ -51,26 +49,26 @@ class MagazineActivity : AppCompatActivity(), ICallbackListener {
             viewPager.isUserInputEnabled = false
 
             lifecycleScope.launchWhenStarted {
-                viewModel.magazineUiState.collect {
+                viewModel.issueUiState.collect {
                     when (it) {
-                        is MagazineViewModel.MagazineUiState.Success -> {
+                        is IssueViewModel.IssueUiState.Success -> {
                             Snackbar.make(
                                 binding.root,
                                 "Successfully logged in",
                                 Snackbar.LENGTH_LONG
                             ).show()
                         }
-                        is MagazineViewModel.MagazineUiState.Error -> {
+                        is IssueViewModel.IssueUiState.Error -> {
                             Snackbar.make(
                                 binding.root,
                                 it.message,
                                 Snackbar.LENGTH_LONG
                             ).show()
                         }
-                        is MagazineViewModel.MagazineUiState.Loading -> {
+                        is IssueViewModel.IssueUiState.Loading -> {
 //                        binding.progressBar.isVisible = true
                         }
-                        is MagazineViewModel.MagazineUiState.SetUserInputEnabled -> {
+                        is IssueViewModel.IssueUiState.SetUserInputEnabled -> {
                             viewPager.isUserInputEnabled = it.isUserInputEnabled
                         }
                         else -> Unit
