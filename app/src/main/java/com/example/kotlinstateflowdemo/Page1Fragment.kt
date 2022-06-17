@@ -55,9 +55,9 @@ class Page1Fragment : Fragment() {
 
         // Web View
 //        webView.loadUrl("https://ebook-reader-2b784.web.app/0003/index.html")
-        webView.loadUrl("https://d1jo9x45ta5zr4.cloudfront.net/contents/1229/5/default/0021/index.html")
-//        webView.loadUrl("https://d1jo9x45ta5zr4.cloudfront.net/contents/1962/1/default/0001/index.html")
-//        webView.loadUrl("https://d2dlq340tge5us.cloudfront.net/contents/2391/14/default/0030/index.html")
+//        webView.loadUrl("https://d1jo9x45ta5zr4.cloudfront.net/contents/1229/5/default/0021/index.html") // Korea
+//        webView.loadUrl("https://d1jo9x45ta5zr4.cloudfront.net/contents/1962/1/default/0001/index.html") // Olympics
+        webView.loadUrl("https://d2dlq340tge5us.cloudfront.net/contents/2391/14/default/0030/index.html") // Mongolia today
         val webSettings: WebSettings = webView.settings
         webSettings.javaScriptEnabled = true
         webSettings.useWideViewPort = true
