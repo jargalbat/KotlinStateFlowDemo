@@ -50,16 +50,16 @@ class ExtendedWebView : WebView {
 
 
         when (event?.action) {
-//            MotionEvent.ACTION_MOVE -> {
-//                if (event.pointerCount > 1 && !disallowIntercept) {
-//                    disallowIntercept = true
-//                    parent.requestDisallowInterceptTouchEvent(true)
-//                }
-//            }
-//            MotionEvent.ACTION_UP -> {
-//                disallowIntercept = false
-//                parent.requestDisallowInterceptTouchEvent(false)
-//            }
+            MotionEvent.ACTION_MOVE -> {
+                if (event.pointerCount > 1 && !disallowIntercept) {
+                    disallowIntercept = true
+                    parent.requestDisallowInterceptTouchEvent(true)
+                }
+            }
+            MotionEvent.ACTION_UP -> {
+                disallowIntercept = false
+                parent.requestDisallowInterceptTouchEvent(false)
+            }
 //            MotionEvent.ACTION_SCROLL -> {
 //                try {
 ////                if (isSwiperCheck()) {

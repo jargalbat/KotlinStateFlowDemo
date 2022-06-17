@@ -31,8 +31,8 @@ class MainViewModel : ViewModel() {
             try {
                 val url =
 //                    URL("https://mongolia-today.com/api/mobile-app/magazine/v1/issues/80/online-view")
-                    URL("https://staging.wplus.world/api/mobile-app/magazine/v1/issues/1200/online-view")
-//                    URL("https://staging.wplus.world/api/mobile-app/magazine/v1/issues/776/online-view")
+//                    URL("https://staging.wplus.world/api/mobile-app/magazine/v1/issues/1200/online-view")
+                    URL("https://staging.wplus.world/api/mobile-app/magazine/v1/issues/776/online-view")
 
                 with(url.openConnection() as HttpURLConnection) {
                     requestMethod = "POST"  // optional default is GET
