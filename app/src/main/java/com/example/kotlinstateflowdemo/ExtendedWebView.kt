@@ -50,16 +50,16 @@ class ExtendedWebView : WebView {
 
 
         when (event?.action) {
-            MotionEvent.ACTION_MOVE -> {
-                if (event.pointerCount > 1 && !disallowIntercept) {
-                    disallowIntercept = true
-                    parent.requestDisallowInterceptTouchEvent(true)
-                }
-            }
-            MotionEvent.ACTION_UP -> {
-                disallowIntercept = false
-                parent.requestDisallowInterceptTouchEvent(false)
-            }
+//            MotionEvent.ACTION_MOVE -> {
+//                if (event.pointerCount > 1 && !disallowIntercept) {
+//                    disallowIntercept = true
+//                    parent.requestDisallowInterceptTouchEvent(true)
+//                }
+//            }
+//            MotionEvent.ACTION_UP -> {
+//                disallowIntercept = false
+//                parent.requestDisallowInterceptTouchEvent(false)
+//            }
 //            MotionEvent.ACTION_SCROLL -> {
 //                try {
 ////                if (isSwiperCheck()) {
@@ -93,31 +93,24 @@ class ExtendedWebView : WebView {
 
             MotionEvent.ACTION_DOWN -> {
                 try {
+                    iCallbackListener = getActivity() as ICallbackListener
+                    iCallbackListener.setUserInputEnabled(false)
 
 //                if (isSwiperCheck()) {
-                    Log.w("jagaatest", "isSwiperCheck ${isSwiperCheck()}")
-                    Log.w("jagaatest", "canScrollHor ${canScrollHor()}")
-
-                    if (isSwiperCheck() && canScrollHor()) {
-//                    val magazineViewModel =  ViewModelStore(this).get(MagazineViewModel::class.java)
-//                        var parentContext = context.applicationContext as MagazineActivity
-//                        var parentContext = activity
-//                        (MagazineActivity) getActivity()
-//                        parentContext.setUserInputEnabled(true)
-//                    viewModel.setCookie(JsonData());
-//                    parentContext.viewModel.setCookie
-//                    var parentContext = parentActivity.this;
-//                    ((MainActivity)getActivity())
-//                    isUserInputEnabled = false
-                        iCallbackListener = getActivity() as ICallbackListener
-                        iCallbackListener.setUserInputEnabled(false)
-                    } else {
-                        iCallbackListener = getActivity() as ICallbackListener
-                        iCallbackListener.setUserInputEnabled(true)
-//                    isUserInputEnabled = true
-                    }
-//                    EventBus.getDefault().post(CustomEvent(CustomEvents.isSwiper, 1, canScrollHor()))
+//                    Log.w("jagaatest", "isSwiperCheck ${isSwiperCheck()}")
+//                    Log.w("jagaatest", "canScrollHor ${canScrollHor()}")
+//
+//                    if (isSwiperCheck() && canScrollHor()) {
+//
+//                        iCallbackListener = getActivity() as ICallbackListener
+//                        iCallbackListener.setUserInputEnabled(false)
+//                    } else {
+//                        iCallbackListener = getActivity() as ICallbackListener
+//                        iCallbackListener.setUserInputEnabled(true)
+//
+//                    }
 //                }
+
                 } catch (e: Exception) {
                     Log.w("jagaatest", e.toString())
                 }
@@ -125,6 +118,12 @@ class ExtendedWebView : WebView {
         }
 
         return super.onTouchEvent(event)
+    }
+
+    override fun onOverScrolled(scrollX: Int, scrollY: Int, clampedX: Boolean, clampedY: Boolean) {
+        iCallbackListener = getActivity() as ICallbackListener
+        iCallbackListener.setUserInputEnabled(true)
+        super.onOverScrolled(scrollX, scrollY, clampedX, clampedY)
     }
 
     private fun canScrollHor(): Boolean {

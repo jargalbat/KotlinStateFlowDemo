@@ -3,22 +3,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_blue_400"
     tools:context=".Page1Fragment">
 
-    <Button
-        android:id="@+id/btn1"
-        android:text="Toggle scroll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    <!--    <Button-->
+    <!--        android:id="@+id/btn1"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Toggle scroll" />-->
 
-    <com.example.kotlinstateflowdemo.ExtendedWebView
-        android:id="@+id/webview"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:text="test1" />
+
+
+    <com.example.kotlinstateflowdemo.NestedScrollableHost
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_600">
+
+        <!--        <TextView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:text="test2" />-->
+
+        <!--        <androidx.recyclerview.widget.RecyclerView-->
+        <!--            android:id="@+id/second_rv"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:background="#FFFFFF" />-->
+
+        <com.example.kotlinstateflowdemo.ExtendedWebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.example.kotlinstateflowdemo.NestedScrollableHost>
 
     <!--    <WebView-->
-<!--        android:id="@+id/webview2"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent" />-->
+    <!--        android:id="@+id/webview2"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent" />-->
 
 </FrameLayout>

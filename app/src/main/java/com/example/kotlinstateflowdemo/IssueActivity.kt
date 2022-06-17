@@ -40,13 +40,14 @@ class IssueActivity : AppCompatActivity(), ICallbackListener {
 
             val viewPager: ViewPager2 = findViewById(R.id.view_pager2)
             val fragments: ArrayList<Fragment> = arrayListOf(
+//                NestedScrollableHost(),
                 Page1Fragment(),
                 Page2Fragment()
             )
 
             val adapter = ViewPagerAdapter(fragments, this)
             viewPager.adapter = adapter
-            viewPager.isUserInputEnabled = false
+            viewPager.isUserInputEnabled = true
 
             lifecycleScope.launchWhenStarted {
                 viewModel.issueUiState.collect {

@@ -1,5 +1,7 @@
 package com.example.kotlinstateflowdemo
 
+import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +10,7 @@ import android.view.ViewGroup
 import android.webkit.CookieManager
 import android.webkit.WebSettings
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Button
 import androidx.activity.viewModels
 
@@ -52,7 +55,9 @@ class Page1Fragment : Fragment() {
 
         // Web View
 //        webView.loadUrl("https://ebook-reader-2b784.web.app/0003/index.html")
-        webView.loadUrl("https://d1jo9x45ta5zr4.cloudfront.net/contents/1229/5/default/0021/index.html")
+//        webView.loadUrl("https://d1jo9x45ta5zr4.cloudfront.net/contents/1229/5/default/0021/index.html")
+        webView.loadUrl("https://d1jo9x45ta5zr4.cloudfront.net/contents/1962/1/default/0001/index.html")
+//        webView.loadUrl("https://d2dlq340tge5us.cloudfront.net/contents/2391/14/default/0030/index.html")
         val webSettings: WebSettings = webView.settings
         webSettings.javaScriptEnabled = true
         webSettings.useWideViewPort = true
@@ -65,12 +70,44 @@ class Page1Fragment : Fragment() {
         webSettings.mediaPlaybackRequiresUserGesture = false
         webSettings.defaultTextEncodingName = "utf-8"
 
+//        webSettings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW;
+
+//        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+
+        //FOR WEBPAGE SLOW UI
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+//        } else {
+//            webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+//        }
+
+//        webView.evaluateJavascript("javascript:if (typeof woovoo === \"function\") { woovoo();}", null)
+
 //        iCallbackListener = activity as ICallbackListener
 //        val btn1: Button = view.findViewById(R.id.btn1)
 //        btn1.setOnClickListener {
 //            iCallbackListener.setUserInputEnabled(gg)
 //            gg = !gg
 //        }
+
+        // Set web view client
+        webView.webViewClient = object : WebViewClient() {
+            override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {
+                // Page loading started
+                // Do something
+//                textview.setText("Page Loading Started ...")
+            }
+
+            override fun onPageFinished(view: WebView, url: String) {
+                webView?.evaluateJavascript(
+                    "javascript:if (typeof woovoo === \"function\") { woovoo();}",
+                    null
+                )
+                // Page loading finished
+                // Enable disable back forward button
+//                textview.setText("Page Loading Finished ....")
+            }
+        }
 
         return view
     }
