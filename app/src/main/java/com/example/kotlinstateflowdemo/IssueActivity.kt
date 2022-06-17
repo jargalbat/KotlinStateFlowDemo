@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.beust.klaxon.Klaxon
 import com.example.kotlinstateflowdemo.databinding.ActivityIssueBinding
@@ -49,6 +50,8 @@ class IssueActivity : AppCompatActivity(), ICallbackListener {
             viewPager.adapter = adapter
             viewPager.isUserInputEnabled = true
 
+            viewPager.reduceDragSensitivity()
+
             lifecycleScope.launchWhenStarted {
                 viewModel.issueUiState.collect {
                     when (it) {
@@ -78,6 +81,17 @@ class IssueActivity : AppCompatActivity(), ICallbackListener {
             }
         }
     }
+
+    private fun ViewPager2.reduceDragSensitivity() {
+        val recyclerViewField = ViewPager2::class.java.getDeclaredField("mRecyclerView")
+        recyclerViewField.isAccessible = true
+        val recyclerView = recyclerViewField.get(this) as RecyclerView
+        val touchSlopField = RecyclerView::class.java.getDeclaredField("mTouchSlop")
+        touchSlopField.isAccessible = true
+        val touchSlop = touchSlopField.get(recyclerView) as Int
+        touchSlopField.set(recyclerView, touchSlop * 5)       // "8" was obtained experimentally
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
