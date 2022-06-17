@@ -26,7 +26,7 @@ class Page1Fragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private lateinit var iCallbackListener: ICallbackListener
+//    private lateinit var iCallbackListener: ICallbackListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,8 +50,6 @@ class Page1Fragment : Fragment() {
         val cookieManager = CookieManager.getInstance()
         cookieManager.setAcceptThirdPartyCookies(webView, true)
 
-        var parentActivity = activity as MagazineActivity
-
         // Web View
 //        webView.loadUrl("https://ebook-reader-2b784.web.app/0003/index.html")
         webView.loadUrl("https://d1jo9x45ta5zr4.cloudfront.net/contents/1229/5/default/0021/index.html")
@@ -67,18 +65,18 @@ class Page1Fragment : Fragment() {
         webSettings.mediaPlaybackRequiresUserGesture = false
         webSettings.defaultTextEncodingName = "utf-8"
 
-        iCallbackListener = activity as ICallbackListener
-        val btn1: Button = view.findViewById(R.id.btn1)
-        btn1.setOnClickListener {
-            iCallbackListener.setUserInputEnabled(gg)
-            gg = !gg
-        }
+//        iCallbackListener = activity as ICallbackListener
+//        val btn1: Button = view.findViewById(R.id.btn1)
+//        btn1.setOnClickListener {
+//            iCallbackListener.setUserInputEnabled(gg)
+//            gg = !gg
+//        }
 
         return view
     }
 
 
-    private var gg: Boolean = false
+//    private var gg: Boolean = false
 
     companion object {
         /**

@@ -1,13 +1,14 @@
 package com.example.kotlinstateflowdemo
 
+import android.app.Activity
 import android.content.Context
+import android.content.ContextWrapper
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.webkit.WebView
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelStore
+
 
 class ExtendedWebView : WebView {
     companion object {
@@ -31,7 +32,21 @@ class ExtendedWebView : WebView {
         defStyleAttr
     )
 
+    private lateinit var iCallbackListener: ICallbackListener
+
+    private fun getActivity(): Activity? {
+        var context = context
+        while (context is ContextWrapper) {
+            if (context is Activity) {
+                return context
+            }
+            context = context.baseContext
+        }
+        return null
+    }
     override fun onTouchEvent(event: MotionEvent?): Boolean {
+
+
 
         when (event?.action) {
             MotionEvent.ACTION_MOVE -> {
@@ -62,7 +77,11 @@ class ExtendedWebView : WebView {
 //                    var parentContext = parentActivity.this;
 //                    ((MainActivity)getActivity())
 //                    isUserInputEnabled = false
+                        iCallbackListener = getActivity() as ICallbackListener
+                        iCallbackListener.setUserInputEnabled(false)
                     } else {
+                        iCallbackListener = getActivity() as ICallbackListener
+                        iCallbackListener.setUserInputEnabled(true)
 //                    isUserInputEnabled = true
                     }
 //                    EventBus.getDefault().post(CustomEvent(CustomEvents.isSwiper, 1, canScrollHor()))
