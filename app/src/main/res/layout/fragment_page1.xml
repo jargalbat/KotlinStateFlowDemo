@@ -5,12 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".Page1Fragment">
 
+    <Button
+        android:id="@+id/btn1"
+        android:text="Toggle scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <com.example.kotlinstateflowdemo.ExtendedWebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-<!--    <WebView-->
+    <!--    <WebView-->
 <!--        android:id="@+id/webview2"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent" />-->

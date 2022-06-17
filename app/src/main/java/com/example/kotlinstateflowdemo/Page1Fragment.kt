@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.webkit.CookieManager
 import android.webkit.WebSettings
 import android.webkit.WebView
+import android.widget.Button
 import androidx.activity.viewModels
 
 // TODO: Rename parameter arguments, choose names that match
@@ -24,6 +25,8 @@ class Page1Fragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private lateinit var iCallbackListener: ICallbackListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,8 +67,18 @@ class Page1Fragment : Fragment() {
         webSettings.mediaPlaybackRequiresUserGesture = false
         webSettings.defaultTextEncodingName = "utf-8"
 
+        iCallbackListener = activity as ICallbackListener
+        val btn1: Button = view.findViewById(R.id.btn1)
+        btn1.setOnClickListener {
+            iCallbackListener.setUserInputEnabled(gg)
+            gg = !gg
+        }
+
         return view
     }
+
+
+    private var gg: Boolean = false
 
     companion object {
         /**
