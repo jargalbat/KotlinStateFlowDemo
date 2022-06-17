@@ -44,6 +44,7 @@ class ExtendedWebView : WebView {
         }
         return null
     }
+
     override fun onTouchEvent(event: MotionEvent?): Boolean {
 
 
@@ -59,6 +60,37 @@ class ExtendedWebView : WebView {
                 disallowIntercept = false
                 parent.requestDisallowInterceptTouchEvent(false)
             }
+//            MotionEvent.ACTION_SCROLL -> {
+//                try {
+////                if (isSwiperCheck()) {
+//                    Log.w("jagaatest", "isSwiperCheck ${isSwiperCheck()}")
+//                    Log.w("jagaatest", "canScrollHor ${canScrollHor()}")
+//
+//                    if (isSwiperCheck() && canScrollHor()) {
+////                    val magazineViewModel =  ViewModelStore(this).get(MagazineViewModel::class.java)
+////                        var parentContext = context.applicationContext as MagazineActivity
+////                        var parentContext = activity
+////                        (MagazineActivity) getActivity()
+////                        parentContext.setUserInputEnabled(true)
+////                    viewModel.setCookie(JsonData());
+////                    parentContext.viewModel.setCookie
+////                    var parentContext = parentActivity.this;
+////                    ((MainActivity)getActivity())
+////                    isUserInputEnabled = false
+//                        iCallbackListener = getActivity() as ICallbackListener
+//                        iCallbackListener.setUserInputEnabled(false)
+//                    } else {
+//                        iCallbackListener = getActivity() as ICallbackListener
+//                        iCallbackListener.setUserInputEnabled(true)
+////                    isUserInputEnabled = true
+//                    }
+////                    EventBus.getDefault().post(CustomEvent(CustomEvents.isSwiper, 1, canScrollHor()))
+////                }
+//                } catch (e: Exception) {
+//                    Log.w("jagaatest", e.toString())
+//                }
+//            }
+
             MotionEvent.ACTION_DOWN -> {
                 try {
 
